@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+const API_BASE_URL = "https://prueba-tech-rl2t.onrender.com";
+
+
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState("simulation");
 
@@ -56,7 +59,7 @@ export default function Dashboard() {
     setSimResult("⏳ Generando simulación...");
 
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/simulate/${count}`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/simulate/${count}`, {
         method: "POST",
         headers: getAuthHeaders()
       });
@@ -86,7 +89,7 @@ export default function Dashboard() {
   // ============================================
   const submitUpload = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/v1/data/upload", {
+      const res = await fetch(`${API_BASE_URL}/api/v1/data/upload`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({
@@ -119,7 +122,7 @@ export default function Dashboard() {
   const fetchMissionStatus = async () => {
     try {
       const res = await fetch(
-        `http://localhost:8000/api/v1/missions/${missionId}/status`,
+        `${API_BASE_URL}/api/v1/missions/${missionId}/status`,
         {
           method: "GET",
           headers: getAuthHeaders()
@@ -162,7 +165,7 @@ export default function Dashboard() {
     if (queryFilters.lon)
       params.append("lon", queryFilters.lon);
 
-    const url = `http://localhost:8000/api/v1/data/query${
+    const url =  `${API_BASE_URL}/api/v1/data/query${
       params.toString() ? "?" + params.toString() : ""
     }`;
 
